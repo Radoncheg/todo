@@ -1,9 +1,12 @@
 .search-panel {
     margin: 1rem 0;
 }
-
 .search-panel .search-input {
-    width: 200px;
+    max-width: 25%;
     flex-grow: 1;
-    margin-right: 3px;
+    margin-top: 13px;
+    margin-right: 33px;
+    margin-left: 33px;
+    margin-bottom: 33px
 }
+

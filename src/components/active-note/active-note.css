@@ -1,0 +1,35 @@
+.buttonAdd2 {
+
+    bottom: 3%;
+    position: absolute;
+    width: 35%;
+    height: 10%;
+    left: 47%;
+}
+
+.inputAdd {
+    margin-top: 2%;
+    margin-left: 2%;
+    text-align: center;
+    width: 96%;
+    height: 30px;
+}
+
+.field1 {
+    padding-top: 3px;
+    padding-left: 10px;
+    display: flex;
+}
+
+.field1:nth-child(2n) {
+    background: whitesmoke;
+}
+
+.field2 {
+    flex-grow: 1;
+}
+
+.field3 {
+    padding-left: 15px;
+    padding-right: 15px;
+}

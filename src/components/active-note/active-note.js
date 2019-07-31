@@ -12,7 +12,7 @@ export default class ActiveNote extends Component {
            <h3>{this.props.activeNote1.title}</h3>
         </div>
            <div className="field3">
-           <h3>{this.props.activeNote1.data}</h3>
+           <h5>{this.props.activeNote1.data}</h5>
         </div>
       </div>
       <div className="field3">
