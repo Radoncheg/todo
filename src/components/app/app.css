@@ -62,6 +62,7 @@
 }
 
 .buttonAdd1 {
+  border-radius:10px;
   bottom: 3%;
   position: absolute;
   width: 20%;

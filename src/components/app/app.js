@@ -11,6 +11,7 @@ export default class App extends Component {
 
     state = {
         notes: NoteService.getNotes(),
+        term: ''
      }
 
     addNote() {
@@ -38,17 +39,31 @@ export default class App extends Component {
         this.setState({addForm: 0, notes: NoteService.getNotes()});
     }
 
+    onSearchChange = (term) => {
+        this.setState({term});
+    }
+
+    search(notes, term) {
+        if (term.length===0) {
+            return notes;
+        }
+        return notes.filter((note)=> {
+            return note.title
+                .toLowerCase()
+                .indexOf(term.toLowerCase()) > -1;
+        });
+    }
+
     render() {
-        let notes = this.state.notes
+        const {notes, term} = this.state;
         if (!notes) {
             notes = [];
         }
-
+        const visibleItems = this.search(notes, term);
         let activeNote = notes.find(note => note.id === this.state.active);
         if (!activeNote) {
             activeNote = [];
         }
-
         return (
             <div className="todo-app">
                 <div className="topHeader todo-app">
@@ -61,15 +76,15 @@ export default class App extends Component {
                 </div>
                 <div className="todo-app flex-container">
                     <div className="first">
-                        {notes.map(note => (
+                        {visibleItems.map(note => (
                             <div className="field1" onClick={this.showItem.bind(this, note.id)
                             } key={note.id}>
                                 <div className="field2">{note.title}
                                 </div>
                                 <div>{note.data}
                                 </div>
-                                <i className="fa fa-pencil icons" onClick={this.editNote.bind(this)}></i>
-                                <i className="fa fa-trash-o icons" onClick={this.removeNote.bind(this, note.id)}></i>
+                                <i className="fa fa-pencil icons" onClick={this.editNote.bind(this)}/>
+                                <i className="fa fa-trash-o icons" onClick={this.removeNote.bind(this, note.id)}/>
                             </div>
                         ))}
                         <div>

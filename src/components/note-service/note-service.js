@@ -16,7 +16,7 @@ static remove(notes, id)
 {
   let index = notes.findIndex(function(notes) {
   return notes.id === id;
-});
+  });
   notes.splice(index, 1)
   let myJSON = JSON.stringify(notes);
   localStorage.setItem('notebook', myJSON);
