@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import ActiveNote from '../active-note';
 import NoteService from '../note-service';
 import AddNote from '../add-note';
+import EditNote from '../edit-note';
 import SearchPanel from "../search-panel";
 
 import './app.css';
@@ -10,30 +11,45 @@ import './app.css';
 export default class App extends Component {
 
     state = {
+         // notes: [
+         //     { id: 1, title: 'Drink Coffee', content: "asdfasdfasdf", date: "21.07.2019" },
+         //     { id: 2, title: 'Drink beer', content: "easdf", date: "21.07.2019"  },
+         //     { id: 3, title: 'Drink tea', content: "false", date: "21.07.2019"  }
+         // ],
         notes: NoteService.getNotes(),
-        term: ''
+        term: '',
      }
 
-    addNote() {
+    addNote = () => {
         this.setState({addForm: 1});
     }
 
-    removeNote(id) {
+    removeNote = (id) => {
         NoteService.remove(this.state.notes, id);
         this.setState({notes: NoteService.getNotes()});
     }
 
-    editNote(note) {
-    }
-
-    showItem(id) {
+    editNote = (id) => {
         this.setState({
             active: id,
-            addForm: 0
+            editForm: 1,
+        });
+    }
+
+    showItem = (id) => {
+        this.setState({
+            active: id,
+            addForm: 0,
         });
     }
 
     saveForm(note) {
+        this.state.notes.push(note);
+        NoteService.save(this.state.notes);
+        this.setState({addForm: 0, notes: NoteService.getNotes()});
+    }
+
+    editForm(note) {
         this.state.notes.push(note);
         NoteService.save(this.state.notes);
         this.setState({addForm: 0, notes: NoteService.getNotes()});
@@ -55,7 +71,7 @@ export default class App extends Component {
     }
 
     render() {
-        const {notes, term} = this.state;
+        let {notes, term} = this.state;
         if (!notes) {
             notes = [];
         }
@@ -77,20 +93,20 @@ export default class App extends Component {
                 <div className="todo-app flex-container">
                     <div className="first">
                         {visibleItems.map(note => (
-                            <div className="field1" onClick={this.showItem.bind(this, note.id)
+                            <div className="field1" onClick={() => this.showItem(note.id)
                             } key={note.id}>
                                 <div className="field2">{note.title}
                                 </div>
-                                <div>{note.data}
+                                <div>{note.date}
                                 </div>
-                                <i className="fa fa-pencil icons" onClick={this.editNote.bind(this)}/>
-                                <i className="fa fa-trash-o icons" onClick={this.removeNote.bind(this, note.id)}/>
+                                <i className="fa fa-pencil icons" onClick={() => this.editNote(note.id)}/>
+                                <i className="fa fa-trash-o icons" onClick={() => this.removeNote(note.id)}/>
                             </div>
                         ))}
                         <div>
                             <button type="button"
                                     className='btn btn-info buttonAdd1'
-                                    onClick={this.addNote.bind(this)}>Добавить
+                                    onClick={() => this.addNote()}>Добавить
                             </button>
                         </div>
                     </div>
@@ -101,6 +117,10 @@ export default class App extends Component {
 
                         {!!this.state.addForm && (
                             <AddNote saveForm={this.saveForm.bind(this)}/>
+                        )}
+
+                            {!!this.state.editForm && (
+                            <EditNote activeNote1={activeNote} editForm={this.saveForm.bind(this)}/>
                         )}
                     </div>
                 </div>

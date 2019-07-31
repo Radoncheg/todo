@@ -8,7 +8,7 @@ export default class AddNote extends Component {
         <div> 
         <input className="form-control inputAdd" placeholder="Введите id"        ref={el=>this.id=el}/>
         <input className="form-control inputAdd" placeholder="Введите заголовок" ref={el=>this.title=el}/>
-        <input className="form-control inputAdd" placeholder="Введите дату"      ref={el=>this.data=el}/>
+        <input className="form-control inputAdd" placeholder="Введите дату"      ref={el=>this.date=el}/>
         <textarea className="form-control inputAdd1" placeholder="Введите заметку"   ref={el=>this.content=el}/>
         <button className='btn btn-info buttonAdd2' onClick={this.saveMyForm.bind(this)}>Сохранить</button>
         </div>
@@ -20,8 +20,8 @@ export default class AddNote extends Component {
           id:this.id.value,
           title:this.title.value,
           content:this.content.value,
-          data:this.data.value
-      }
+          date:this.date.value
+      };
   
     this.props.saveForm(newNote)
   }

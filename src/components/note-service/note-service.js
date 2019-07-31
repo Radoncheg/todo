@@ -17,10 +17,14 @@ static remove(notes, id)
   let index = notes.findIndex(function(notes) {
   return notes.id === id;
   });
-  notes.splice(index, 1)
+  const newArray = [
+    ...notes.slice(0, index),
+    ...notes.slice(index + 1)
+  ];
+  notes = newArray;
   let myJSON = JSON.stringify(notes);
   localStorage.setItem('notebook', myJSON);
-}  
+}
 
 static edit(notes, id)
 {
