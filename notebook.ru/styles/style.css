@@ -1,0 +1,32 @@
+body {
+  background: darkblue; /* Цвет фона */
+  color: #fff; /* Цвет текста */
+   }
+section {
+background: white;
+color: black;
+border-radius: 3em;
+padding: 1em;
+position: absolute;
+width: 30em;
+height: 450;
+top: 50%;
+left: 50%;
+margin-right: -50%;
+transform: translate(-50%, -50%) 
+      }
+
+.small {
+        height: 350;
+              }
+      
+.btn
+{
+  width: 250px;
+  margin: 5px;
+}
+.form-control
+{
+  width: 250px;
+  margin: 5px;
+}
