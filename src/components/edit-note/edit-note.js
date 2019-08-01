@@ -9,7 +9,7 @@ export default class EditNote extends Component {
                        ref={el => this.id = el}/>
                 <input className="form-control inputAdd" defaultValue={this.props.activeNote1.title}
                        ref={el => this.title = el}/>
-                <input className="form-control inputAdd" defaultValue={this.props.activeNote1.date}
+                <input type="date" className="form-control inputAdd" defaultValue={this.props.activeNote1.date}
                        ref={el => this.date = el}/>
                 <textarea className="form-control inputAdd1" defaultValue={this.props.activeNote1.content}
                           ref={el => this.content = el}/>

@@ -7,21 +7,21 @@ import EditNote from '../edit-note';
 import SearchPanel from "../search-panel";
 
 import './app.css';
+let notes = NoteService.getNotes();
+localStorage.setItem("notebook",JSON.stringify(notes));
 
 export default class App extends Component {
 
     state = {
-         // notes: [
-         //     { id: 1, title: 'Drink Coffee', content: "asdfasdfasdf", date: "21.07.2019" },
-         //     { id: 2, title: 'Drink beer', content: "easdf", date: "21.07.2019"  },
-         //     { id: 3, title: 'Drink tea', content: "false", date: "21.07.2019"  }
-         // ],
-        notes: NoteService.getNotes(),
+      notes: NoteService.getNotes(),
         term: '',
      }
 
     addNote = () => {
-        this.setState({addForm: 1});
+        this.setState({
+            addForm: 1,
+            editForm: 0
+        });
     }
 
     removeNote = (id) => {
@@ -32,7 +32,8 @@ export default class App extends Component {
     editNote = (id) => {
         this.setState({
             active: id,
-            editForm: 1,
+            addForm: 0,
+            editForm: 1
         });
         this.setState({notes: NoteService.getNotes()});
     }
@@ -122,7 +123,7 @@ export default class App extends Component {
                         </div>
                     </div>
                     <div className="second">
-                        {this.state.active && !this.state.addForm && (
+                        {this.state.active && !this.state.addForm && !this.state.editForm &&(
                             <ActiveNote activeNote1={activeNote}/>
                         )}
 
