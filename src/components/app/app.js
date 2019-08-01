@@ -34,12 +34,14 @@ export default class App extends Component {
             active: id,
             editForm: 1,
         });
+        this.setState({notes: NoteService.getNotes()});
     }
 
     showItem = (id) => {
         this.setState({
             active: id,
             addForm: 0,
+            editForm: 0
         });
     }
 
@@ -50,9 +52,11 @@ export default class App extends Component {
     }
 
     editForm(note) {
-        this.state.notes.push(note);
-        NoteService.save(this.state.notes);
-        this.setState({addForm: 0, notes: NoteService.getNotes()});
+        NoteService.edit(this.state.notes, note);
+        this.setState({
+            addForm: 0,
+            editForm: 0
+        });
     }
 
     onSearchChange = (term) => {
@@ -84,7 +88,7 @@ export default class App extends Component {
             <div className="todo-app">
                 <div className="topHeader todo-app">
                     <div className="search-panel d-flex">
-
+                        <div><i className="fa fa-search icons"/></div>
                         <SearchPanel
                             onSearchChange={this.onSearchChange}/>
                         <h1 className="Header">the notebook</h1>
@@ -99,8 +103,15 @@ export default class App extends Component {
                                 </div>
                                 <div>{note.date}
                                 </div>
-                                <i className="fa fa-pencil icons" onClick={() => this.editNote(note.id)}/>
-                                <i className="fa fa-trash-o icons" onClick={() => this.removeNote(note.id)}/>
+                                <i className="fa fa-pencil icons"
+                                   onClick={(e) => {
+                                       e.preventDefault();
+                                       e.stopPropagation();
+                                       this.editNote(note.id)
+
+                                }}/>
+                                <i className="fa fa-trash-o icons"
+                                   onClick={() => this.removeNote(note.id)}/>
                             </div>
                         ))}
                         <div>
@@ -120,7 +131,7 @@ export default class App extends Component {
                         )}
 
                             {!!this.state.editForm && (
-                            <EditNote activeNote1={activeNote} editForm={this.saveForm.bind(this)}/>
+                            <EditNote activeNote1={activeNote} editForm={this.editForm.bind(this)}/>
                         )}
                     </div>
                 </div>

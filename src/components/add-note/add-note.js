@@ -6,7 +6,7 @@ export default class AddNote extends Component {
   render() {
     return(
         <div> 
-        <input className="form-control inputAdd" placeholder="Введите id"        ref={el=>this.id=el}/>
+        <input className="form-control inputAdd" placeholder="Введите id"        ref={el=>this.id=el} />
         <input className="form-control inputAdd" placeholder="Введите заголовок" ref={el=>this.title=el}/>
         <input className="form-control inputAdd" placeholder="Введите дату"      ref={el=>this.date=el}/>
         <textarea className="form-control inputAdd1" placeholder="Введите заметку"   ref={el=>this.content=el}/>
@@ -16,7 +16,7 @@ export default class AddNote extends Component {
   }
   saveMyForm() {
   //функция в этом же конмоненте, чтобы иметь доступ к рефам
-        let newNote={
+        const newNote={
           id:this.id.value,
           title:this.title.value,
           content:this.content.value,
